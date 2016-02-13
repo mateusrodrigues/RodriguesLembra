@@ -10,6 +10,7 @@ namespace RodriguesLembra.Models
     public class ApplicationUser : IdentityUser
     {
         public string Name { get; set; }
+        public int Score { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
