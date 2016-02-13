@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using RodriguesLembra.Helpers;
+using System.Web;
 using System.Web.Mvc;
 
 namespace RodriguesLembra
@@ -7,7 +8,8 @@ namespace RodriguesLembra
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new AiHandleErrorAttribute());
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }

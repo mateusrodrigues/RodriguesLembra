@@ -1,30 +1,32 @@
-﻿using System;
+﻿using RodriguesLembra.DAL;
+using RodriguesLembra.Models;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace RodriguesLembra.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            List<Todo> tasks = new List<Todo>();
+            using (var context = new ApplicationDbContext())
+            {
+                var userId = context.Users.First(m => m.UserName.Equals(User.Identity.Name)).Id;
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+                tasks = context.Todos.Where(m => m.Realm.UserID.Equals(userId))
+                    .Include(m => m.Realm)
+                    .OrderByDescending(m => m.DueDate)
+                    .Take(20)
+                    .ToList();
+            }
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return View(tasks);
         }
     }
 }

@@ -65,6 +65,10 @@ namespace RodriguesLembra.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nome")]
+        public string Name { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

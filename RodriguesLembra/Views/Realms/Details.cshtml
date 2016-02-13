@@ -1,0 +1,114 @@
+﻿@model RodriguesLembra.Models.Realm
+@{
+    ViewBag.Title = "Detalhes - " + Model.Name;
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@Model.Name <a href="@Url.Action("Create", "Todos", new { realmId = Model.RealmID})" class="btn btn-sm btn-info">Nova Tarefa</a></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+@if (ViewData["ErrorMessage"] != null)
+{
+    if (!string.IsNullOrEmpty(ViewData["ErrorMessage"].ToString()))
+    {
+        <div class="alert alert-danger"><strong>Erro!</strong> @ViewBag.ErrorMessage</div>
+    }
+}
+
+@if (ViewData["Message"] != null)
+{
+    if (!string.IsNullOrEmpty(ViewData["Message"].ToString()))
+    {
+        <div class="alert alert-success"><strong>Sucesso!</strong> @ViewBag.Message</div>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <th>Data de Validade</th>
+                    <th>Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Todos.OrderByDescending(m => m.DueDate))
+                {
+                    if (item.DueDate.Date < DateTime.UtcNow.AddHours(-3).Date)
+                    {
+                        <tr style="background-color: mistyrose">
+                            <td><strong>@item.Title</strong></td>
+                            <td>@item.DueDate.ToLongDateString()</td>
+                            @if (item.IsDone)
+                            {
+                                <td><p class="text-success"><strong>Feito!</strong></p></td>
+                            }
+                            else
+                            {
+                                <td><p class="text-warning"><strong>Não-feito!</strong></p></td>
+                            }
+                            @if (!item.IsDone)
+                            {
+                                <td>
+                                    <a href="@Url.Action("ToggleStatus", "Todos", new { id = item.TodoID })"
+                                       class="btn btn-success btn-sm"><span class="glyphicon glyphicon-check"></span></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a href="@Url.Action("ToggleStatus", "Todos", new { id = item.TodoID })"
+                                       class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-erase"></span></a>
+                                </td>
+                            }
+                            <td>
+                                <a href="@Url.Action("Delete", "Todos", new { id = item.TodoID })"
+                                   class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td><strong>@item.Title</strong></td>
+                            <td>@item.DueDate.ToLongDateString()</td>
+                            @if (item.IsDone)
+                            {
+                                <td><p class="text-success"><strong>Feito!</strong></p></td>
+                            }
+                            else
+                            {
+                                <td><p class="text-warning"><strong>Não-feito!</strong></p></td>
+                            }
+                            @if (!item.IsDone)
+                            {
+                                <td>
+                                    <a href="@Url.Action("ToggleStatus", "Todos", new { id = item.TodoID })"
+                                       class="btn btn-success btn-sm"><span class="glyphicon glyphicon-check"></span></a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a href="@Url.Action("ToggleStatus", "Todos", new { id = item.TodoID })"
+                                       class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-erase"></span></a>
+                                </td>
+                            }
+                            <td>
+                                <a href="@Url.Action("Delete", "Todos", new { id = item.TodoID })"
+                                   class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

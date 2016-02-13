@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RodriguesLembra.Models.Realm>
+@{
+    ViewBag.Title = "Contextos";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Contextos <a href="@Url.Action("Create")" class="btn btn-sm btn-info">Novo Contexto</a></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Contexto</th>
+                    <th>Tarefas</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Todos.Count</td>
+                        <td><a href="@Url.Action("Delete", new { id = item.RealmID })" class="pull-right btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

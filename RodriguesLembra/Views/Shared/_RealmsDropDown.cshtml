@@ -1,0 +1,27 @@
+﻿@model IEnumerable<RodriguesLembra.Models.Realm>
+
+@foreach (var item in Model)
+{
+   
+    var percentage =
+        double.Parse(item.Todos.Count(m => m.IsDone).ToString()) / double.Parse(item.Todos.Count().ToString());
+    percentage = percentage * 100;
+    var percentageString = percentage.ToString("0.0");
+    var percentageStringForComponent = percentage.ToString("0");
+
+    <li>
+        <a href="@Url.Action("Details", "Realms", new { id = item.RealmID })">
+            <div>
+                <p>
+                    <strong>@item.Name</strong>
+                    <span class="pull-right text-muted">@(percentageString)% Completo</span>
+                </p>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@(percentageStringForComponent)" aria-valuemin="0" aria-valuemax="100" style="width: @(percentageStringForComponent)%">
+                        <span class="sr-only">@(percentageString)% Completo</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+}
