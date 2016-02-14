@@ -17,7 +17,8 @@ namespace RodriguesLembra.Controllers
         {
             CreateTodoViewModel model = new CreateTodoViewModel()
             {
-                RealmID = realmId
+                RealmID = realmId,
+                DueDate = DateTime.UtcNow.AddHours(-3)
             };
 
             return View(model);
