@@ -22,11 +22,17 @@ namespace RodriguesLembra.Controllers
                 tasks = context.Todos.Where(m => m.Realm.UserID.Equals(userId))
                     .Include(m => m.Realm)
                     .OrderByDescending(m => m.DueDate)
+                    .ThenBy(m => m.Title)
                     .Take(20)
                     .ToList();
             }
 
             return View(tasks);
+        }
+
+        public ActionResult About()
+        {
+            return View();
         }
     }
 }

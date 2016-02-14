@@ -7,12 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Mateus Rodrigues">
+
+    <meta name="application-name" content="Rodrigues Lembra!" />
+    <meta name="msapplication-TileColor" content="#5ab75b" />
+    <meta name="msapplication-square70x70logo" content="~/Content/Images/tiny.png" />
+    <meta name="msapplication-square150x150logo" content="~/Content/Images/square.png" />
+    <meta name="msapplication-wide310x150logo" content="~/Content/Images/wide.png" />
+    <meta name="msapplication-square310x310logo" content="~/Content/Images/large.png"/>
+
     <title>Rodrigues Lembra! - @ViewBag.Title</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
     <!-- MetisMenu CSS -->
     <link href="~/Content/metisMenu.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -57,7 +64,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Rodrigues Lembra!</a>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Rodrigues Lembra! ♥</a>
             </div>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
@@ -96,6 +103,9 @@
                             <a href="@Url.Action("Index", "Realms")"><i class="glyphicon glyphicon-console"></i> Contextos</a>
                         </li>
                         @Html.Action("Realms", "Partials")
+                        <li>
+                            <a href="@Url.Action("About", "Home")"><i class="glyphicon glyphicon-question-sign"></i> Sobre</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -107,6 +117,10 @@
             <div class="container-fluid">
                 @RenderBody()
             </div>
+            <hr />
+            <footer class="text-center" style="margin-bottom: 10px">
+                Feito com <span class="glyphicon glyphicon-heart" style="color: red"></span> para <strong>Leilane</strong>
+            </footer>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
