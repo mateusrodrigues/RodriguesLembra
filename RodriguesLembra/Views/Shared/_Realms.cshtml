@@ -1,12 +1,14 @@
 ﻿@model IEnumerable<RodriguesLembra.Models.Realm>
 
 <li>
-    <a href="#"><i class="glyphicon glyphicon-tasks fa-fw"></i> Tarefas<span class="fa arrow"></span></a>
+    <a href="#"><span class="glyphicon glyphicon-tasks"></span> Tarefas<span class="fa arrow"></span></a>
     <ul class="nav nav-second-level">
     @foreach (var realm in Model)
     {
         <li>
-            @Html.ActionLink(realm.Name, "Details", "Realms", new { id = realm.RealmID}, null)
+            <a href="@Url.Action("Details", "Realms", new { id = realm.RealmID })">
+                <i class="glyphicon glyphicon-arrow-right"></i> @realm.Name
+            </a>
         </li>
     }
     </ul>

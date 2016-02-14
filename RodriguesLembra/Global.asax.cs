@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,11 +20,18 @@ namespace RodriguesLembra
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
+            try
             {
-                var configuration = new Migrations.Configuration();
-                var migrator = new DbMigrator(configuration);
-                migrator.Update();
+                if (bool.Parse(ConfigurationManager.AppSettings["MigrateDatabaseToLatestVersion"]))
+                {
+                    var configuration = new Migrations.Configuration();
+                    var migrator = new DbMigrator(configuration);
+                    migrator.Update();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                Trace.TraceWarning("MigrateDatabaseToLatestVersion key is null. Database not migrated.");
             }
         }
     }
